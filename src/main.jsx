@@ -6,6 +6,10 @@ import App from "./App";
 import "./index.css";
 import { AuthProvider } from "./context/AuthContext";
 import { StoreProvider } from "./context/StoreContext";
+import { initializeDashboard } from "./utils/initDashboard";
+
+// Initialize dashboard before rendering
+initializeDashboard();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

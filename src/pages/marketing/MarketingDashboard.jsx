@@ -149,17 +149,17 @@ const MarketingDashboard = () => {
   const getCampaignTypeIcon = (type) => {
     switch (type) {
       case "email":
-        return <EnvelopeIcon className="h-5 w-5" />;
+        return <EnvelopeIcon className="w-5 h-5" />;
       case "social_media":
-        return <UserGroupIcon className="h-5 w-5" />;
+        return <UserGroupIcon className="w-5 h-5" />;
       case "search":
-        return <MagnifyingGlassIcon className="h-5 w-5" />;
+        return <MagnifyingGlassIcon className="w-5 h-5" />;
       case "display":
-        return <GlobeAltIcon className="h-5 w-5" />;
+        return <GlobeAltIcon className="w-5 h-5" />;
       case "referral":
-        return <UserGroupIcon className="h-5 w-5" />;
+        return <UserGroupIcon className="w-5 h-5" />;
       default:
-        return <MegaphoneIcon className="h-5 w-5" />;
+        return <MegaphoneIcon className="w-5 h-5" />;
     }
   };
 
@@ -183,25 +183,25 @@ const MarketingDashboard = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold text-gray-900">
           Marketing Campaigns
         </h1>
         <Link to="/marketing/campaigns/new" className="btn-primary">
-          <PlusIcon className="h-5 w-5 mr-2" />
+          <PlusIcon className="w-5 h-5 mr-2" />
           Create Campaign
         </Link>
       </div>
 
       {/* Marketing Metrics */}
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="bg-white overflow-hidden shadow rounded-lg">
+        <div className="overflow-hidden bg-white rounded-lg shadow">
           <div className="p-5">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <CurrencyDollarIcon className="h-6 w-6 text-gray-400" />
+                <CurrencyDollarIcon className="w-6 h-6 text-gray-400" />
               </div>
-              <div className="ml-5 w-0 flex-1">
+              <div className="flex-1 w-0 ml-5">
                 <dl>
                   <dt className="text-sm font-medium text-gray-500 truncate">
                     Total Budget
@@ -215,7 +215,7 @@ const MarketingDashboard = () => {
               </div>
             </div>
           </div>
-          <div className="bg-gray-50 px-5 py-3">
+          <div className="px-5 py-3 bg-gray-50">
             <div className="text-sm">
               <span className="text-gray-500">Spent: </span>
               <span className="font-medium text-gray-900">
@@ -227,13 +227,13 @@ const MarketingDashboard = () => {
           </div>
         </div>
 
-        <div className="bg-white overflow-hidden shadow rounded-lg">
+        <div className="overflow-hidden bg-white rounded-lg shadow">
           <div className="p-5">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <ChartBarIcon className="h-6 w-6 text-gray-400" />
+                <ChartBarIcon className="w-6 h-6 text-gray-400" />
               </div>
-              <div className="ml-5 w-0 flex-1">
+              <div className="flex-1 w-0 ml-5">
                 <dl>
                   <dt className="text-sm font-medium text-gray-500 truncate">
                     Impressions
@@ -247,7 +247,7 @@ const MarketingDashboard = () => {
               </div>
             </div>
           </div>
-          <div className="bg-gray-50 px-5 py-3">
+          <div className="px-5 py-3 bg-gray-50">
             <div className="text-sm">
               <span className="text-gray-500">CTR: </span>
               <span className="font-medium text-gray-900">
@@ -257,13 +257,13 @@ const MarketingDashboard = () => {
           </div>
         </div>
 
-        <div className="bg-white overflow-hidden shadow rounded-lg">
+        <div className="overflow-hidden bg-white rounded-lg shadow">
           <div className="p-5">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <ChartBarIcon className="h-6 w-6 text-gray-400" />
+                <ChartBarIcon className="w-6 h-6 text-gray-400" />
               </div>
-              <div className="ml-5 w-0 flex-1">
+              <div className="flex-1 w-0 ml-5">
                 <dl>
                   <dt className="text-sm font-medium text-gray-500 truncate">
                     Clicks
@@ -277,7 +277,7 @@ const MarketingDashboard = () => {
               </div>
             </div>
           </div>
-          <div className="bg-gray-50 px-5 py-3">
+          <div className="px-5 py-3 bg-gray-50">
             <div className="text-sm">
               <span className="text-gray-500">Cost per Click: </span>
               <span className="font-medium text-gray-900">
@@ -290,13 +290,13 @@ const MarketingDashboard = () => {
           </div>
         </div>
 
-        <div className="bg-white overflow-hidden shadow rounded-lg">
+        <div className="overflow-hidden bg-white rounded-lg shadow">
           <div className="p-5">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <ChartBarIcon className="h-6 w-6 text-gray-400" />
+                <ChartBarIcon className="w-6 h-6 text-gray-400" />
               </div>
-              <div className="ml-5 w-0 flex-1">
+              <div className="flex-1 w-0 ml-5">
                 <dl>
                   <dt className="text-sm font-medium text-gray-500 truncate">
                     Conversions
@@ -310,7 +310,7 @@ const MarketingDashboard = () => {
               </div>
             </div>
           </div>
-          <div className="bg-gray-50 px-5 py-3">
+          <div className="px-5 py-3 bg-gray-50">
             <div className="text-sm">
               <span className="text-gray-500">Conversion Rate: </span>
               <span className="font-medium text-gray-900">
@@ -323,9 +323,9 @@ const MarketingDashboard = () => {
 
       {/* Performance Charts */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <div className="bg-white overflow-hidden shadow rounded-lg">
-          <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
-            <h3 className="text-lg leading-6 font-medium text-gray-900">
+        <div className="overflow-hidden bg-white rounded-lg shadow">
+          <div className="px-4 py-5 border-b border-gray-200 sm:px-6">
+            <h3 className="text-lg font-medium leading-6 text-gray-900">
               Campaign Performance
             </h3>
           </div>
@@ -336,9 +336,9 @@ const MarketingDashboard = () => {
           </div>
         </div>
 
-        <div className="bg-white overflow-hidden shadow rounded-lg">
-          <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
-            <h3 className="text-lg leading-6 font-medium text-gray-900">
+        <div className="overflow-hidden bg-white rounded-lg shadow">
+          <div className="px-4 py-5 border-b border-gray-200 sm:px-6">
+            <h3 className="text-lg font-medium leading-6 text-gray-900">
               Channel Performance
             </h3>
           </div>
@@ -351,8 +351,8 @@ const MarketingDashboard = () => {
       </div>
 
       {/* Campaign List */}
-      <div className="bg-white shadow rounded-lg">
-        <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
+      <div className="bg-white rounded-lg shadow">
+        <div className="px-4 py-5 border-b border-gray-200 sm:px-6">
           <div className="flex flex-wrap items-center justify-between">
             <div className="flex-1 min-w-0">
               <h2 className="text-lg font-medium leading-6 text-gray-900">
@@ -361,9 +361,9 @@ const MarketingDashboard = () => {
             </div>
             <div className="flex mt-4 sm:mt-0">
               <div className="relative rounded-md shadow-sm">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                   <MagnifyingGlassIcon
-                    className="h-5 w-5 text-gray-400"
+                    className="w-5 h-5 text-gray-400"
                     aria-hidden="true"
                   />
                 </div>
@@ -371,7 +371,7 @@ const MarketingDashboard = () => {
                   type="text"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="block w-full rounded-md border-gray-300 pl-10 focus:border-primary-500 focus:ring-primary-500 sm:text-sm"
+                  className="block w-full pl-10 border-gray-300 rounded-md focus:border-primary-500 focus:ring-primary-500 sm:text-sm"
                   placeholder="Search campaigns..."
                 />
               </div>
@@ -385,7 +385,7 @@ const MarketingDashboard = () => {
                 id="tabs"
                 value={activeTab}
                 onChange={(e) => setActiveTab(e.target.value)}
-                className="block w-full rounded-md border-gray-300 focus:border-primary-500 focus:ring-primary-500"
+                className="block w-full border-gray-300 rounded-md focus:border-primary-500 focus:ring-primary-500"
               >
                 {tabs.map((tab) => (
                   <option key={tab.id} value={tab.id}>
@@ -396,7 +396,7 @@ const MarketingDashboard = () => {
             </div>
             <div className="hidden sm:block">
               <div className="border-b border-gray-200">
-                <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+                <nav className="flex -mb-px space-x-8" aria-label="Tabs">
                   {tabs.map((tab) => (
                     <button
                       key={tab.id}
@@ -474,10 +474,10 @@ const MarketingDashboard = () => {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200 bg-white">
+            <tbody className="bg-white divide-y divide-gray-200">
               {paginatedData.map((campaign) => (
                 <tr key={campaign.id}>
-                  <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-primary-600 sm:pl-6">
+                  <td className="py-4 pl-4 pr-3 text-sm font-medium whitespace-nowrap text-primary-600 sm:pl-6">
                     <Link
                       to={`/marketing/campaigns/${campaign.id}`}
                       className="hover:underline"
@@ -502,9 +502,9 @@ const MarketingDashboard = () => {
                       )}
                     </div>
                   </td>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                  <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
                     <div className="flex items-center">
-                      <span className="text-gray-500 mr-2">
+                      <span className="mr-2 text-gray-500">
                         {getCampaignTypeIcon(campaign.type)}
                       </span>
                       <span>
@@ -518,7 +518,7 @@ const MarketingDashboard = () => {
                       </span>
                     </div>
                   </td>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm">
+                  <td className="px-3 py-4 text-sm whitespace-nowrap">
                     <span
                       className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${getStatusColor(
                         campaign.status
@@ -528,16 +528,16 @@ const MarketingDashboard = () => {
                         campaign.status.slice(1)}
                     </span>
                   </td>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                  <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
                     ${campaign.budget.toLocaleString()}
                   </td>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                  <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
                     ${campaign.spent.toLocaleString()}
-                    <span className="text-xs text-gray-400 ml-1">
+                    <span className="ml-1 text-xs text-gray-400">
                       ({((campaign.spent / campaign.budget) * 100).toFixed(0)}%)
                     </span>
                   </td>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                  <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
                     <div className="flex flex-col">
                       <span>
                         CTR:{" "}
@@ -559,10 +559,10 @@ const MarketingDashboard = () => {
                       </span>
                     </div>
                   </td>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                  <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
                     <Link
                       to={`/marketing/campaigns/${campaign.id}`}
-                      className="text-primary-600 hover:text-primary-900 mr-3"
+                      className="mr-3 text-primary-600 hover:text-primary-900"
                     >
                       View
                     </Link>
@@ -593,7 +593,7 @@ const MarketingDashboard = () => {
         {/* Pagination */}
         {totalPages > 1 && (
           <nav
-            className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6"
+            className="flex items-center justify-between px-4 py-3 bg-white border-t border-gray-200 sm:px-6"
             aria-label="Pagination"
           >
             <div className="hidden sm:block">
@@ -611,15 +611,15 @@ const MarketingDashboard = () => {
                 results
               </p>
             </div>
-            <div className="flex flex-1 justify-between sm:justify-end">
+            <div className="flex justify-between flex-1 sm:justify-end">
               <button
                 onClick={prevPage}
                 disabled={currentPage === 1}
-                className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Previous
               </button>
-              <div className="hidden md:flex mx-2 items-center">
+              <div className="items-center hidden mx-2 md:flex">
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                   (page) => (
                     <button
@@ -639,7 +639,7 @@ const MarketingDashboard = () => {
               <button
                 onClick={nextPage}
                 disabled={currentPage === totalPages}
-                className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Next
               </button>

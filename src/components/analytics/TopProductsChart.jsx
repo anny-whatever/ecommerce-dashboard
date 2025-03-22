@@ -1,4 +1,4 @@
-// src/components/analytics/TopProductsChart.jsx
+// src/components/analytics/TopProductsChart.jsx (updated)
 import { useState, useEffect } from "react";
 import {
   PieChart,
@@ -8,96 +8,84 @@ import {
   Legend,
   Tooltip,
 } from "recharts";
+import ChartContainer from "../common/ChartContainer";
+import { getProductSalesData } from "../../utils/chartFix";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8"];
 
-const TopProductsChart = ({ products, orders }) => {
+const TopProductsChart = () => {
   const [chartData, setChartData] = useState([]);
+  const [totalSales, setTotalSales] = useState(0);
 
   useEffect(() => {
-    // Calculate top products by sales
-    const calculateTopProducts = () => {
-      // Create a map to hold product sales data
-      const productSalesMap = new Map();
+    // Get product sales data
+    const productData = getProductSalesData();
 
-      // Calculate total sales for each product
-      orders.forEach((order) => {
-        order.items.forEach((item) => {
-          const productId = item.product.id;
-          const salesAmount = item.total;
+    // Calculate total
+    const total = productData.reduce((sum, product) => sum + product.sales, 0);
+    setTotalSales(total);
 
-          if (productSalesMap.has(productId)) {
-            productSalesMap.set(
-              productId,
-              productSalesMap.get(productId) + salesAmount
-            );
-          } else {
-            productSalesMap.set(productId, salesAmount);
-          }
-        });
+    // Take top 5 products
+    const topProducts = [...productData]
+      .sort((a, b) => b.sales - a.sales)
+      .slice(0, 5);
+
+    // Calculate 'Other' category for remaining products
+    const otherSales = total - topProducts.reduce((sum, p) => sum + p.sales, 0);
+
+    if (otherSales > 0) {
+      topProducts.push({
+        name: "Other Products",
+        sales: otherSales,
+        category: "Other",
       });
-
-      // Convert map to array and sort by sales
-      const productSalesArray = Array.from(productSalesMap.entries()).map(
-        ([productId, value]) => {
-          const product = products.find((p) => p.id === productId);
-          return {
-            name: product ? product.name : "Unknown Product",
-            value,
-          };
-        }
-      );
-
-      // Sort by sales value (descending)
-      productSalesArray.sort((a, b) => b.value - a.value);
-
-      // Take top 5 products
-      const topProducts = productSalesArray.slice(0, 5);
-
-      // Calculate 'Other' category if needed
-      if (productSalesArray.length > 5) {
-        const otherValue = productSalesArray
-          .slice(5)
-          .reduce((sum, product) => sum + product.value, 0);
-        topProducts.push({
-          name: "Other Products",
-          value: otherValue,
-        });
-      }
-
-      setChartData(topProducts);
-    };
-
-    if (products.length > 0 && orders.length > 0) {
-      calculateTopProducts();
     }
-  }, [products, orders]);
+
+    setChartData(topProducts);
+  }, []);
+
+  // Custom render for the pie chart labels (empty to avoid crowding)
+  const renderCustomizedLabel = () => null;
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
-      <PieChart>
-        <Pie
-          data={chartData}
-          cx="50%"
-          cy="50%"
-          labelLine={false}
-          label={({ name, percent }) =>
-            `${name}: ${(percent * 100).toFixed(0)}%`
-          }
-          outerRadius="80%"
-          fill="#8884d8"
-          dataKey="value"
-        >
-          {chartData.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-        <Tooltip
-          formatter={(value) => [`$${value.toLocaleString()}`, "Sales"]}
-        />
-        <Legend />
-      </PieChart>
-    </ResponsiveContainer>
+    <ChartContainer height={320}>
+      {chartData.length > 0 && (
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
+            <Pie
+              data={chartData}
+              cx="50%"
+              cy="50%"
+              labelLine={false}
+              label={renderCustomizedLabel}
+              outerRadius="80%"
+              fill="#8884d8"
+              dataKey="sales"
+            >
+              {chartData.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
+              ))}
+            </Pie>
+            <Tooltip
+              formatter={(value) => [`$${value.toLocaleString()}`, "Sales"]}
+            />
+            <Legend
+              layout="horizontal"
+              verticalAlign="bottom"
+              align="center"
+              formatter={(value, entry, index) => (
+                <span style={{ color: COLORS[index % COLORS.length] }}>
+                  {value}
+                </span>
+              )}
+            />
+          </PieChart>
+        </ResponsiveContainer>
+      )}
+    </ChartContainer>
   );
 };
 

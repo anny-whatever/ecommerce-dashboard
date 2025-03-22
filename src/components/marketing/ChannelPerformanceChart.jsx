@@ -1,3 +1,4 @@
+// src/components/marketing/ChannelPerformanceChart.jsx (updated)
 import { useState, useEffect } from "react";
 import {
   PieChart,
@@ -7,6 +8,8 @@ import {
   Legend,
   Tooltip,
 } from "recharts";
+import ChartContainer from "../common/ChartContainer";
+import { getMarketingCampaigns } from "../../utils/chartFix";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8"];
 
@@ -15,26 +18,40 @@ const ChannelPerformanceChart = ({ campaignsByType }) => {
   const [chartMetric, setChartMetric] = useState("conversions"); // Default metric
 
   useEffect(() => {
-    if (!campaignsByType || Object.keys(campaignsByType).length === 0) {
-      return;
+    // Use provided data or get from storage
+    let campaigns;
+    if (campaignsByType && Object.keys(campaignsByType).length > 0) {
+      campaigns = campaignsByType;
+    } else {
+      // Get all campaigns
+      const allCampaigns = getMarketingCampaigns();
+
+      // Group by type
+      campaigns = allCampaigns.reduce((acc, campaign) => {
+        if (!acc[campaign.type]) {
+          acc[campaign.type] = [];
+        }
+        acc[campaign.type].push(campaign);
+        return acc;
+      }, {});
     }
 
     // Calculate metrics for each channel type
-    const data = Object.entries(campaignsByType).map(([type, campaigns]) => {
+    const data = Object.entries(campaigns).map(([type, typeCampaigns]) => {
       // Sum up the performance metrics
-      const impressions = campaigns.reduce(
+      const impressions = typeCampaigns.reduce(
         (sum, campaign) => sum + campaign.performance.impressions,
         0
       );
-      const clicks = campaigns.reduce(
+      const clicks = typeCampaigns.reduce(
         (sum, campaign) => sum + campaign.performance.clicks,
         0
       );
-      const conversions = campaigns.reduce(
+      const conversions = typeCampaigns.reduce(
         (sum, campaign) => sum + campaign.performance.conversions,
         0
       );
-      const spent = campaigns.reduce(
+      const spent = typeCampaigns.reduce(
         (sum, campaign) => sum + campaign.spent,
         0
       );
@@ -65,11 +82,11 @@ const ChannelPerformanceChart = ({ campaignsByType }) => {
 
   return (
     <div className="h-full">
-      <div className="mb-4 flex justify-end">
+      <div className="flex justify-end mb-4">
         <select
           value={chartMetric}
           onChange={handleMetricChange}
-          className="rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+          className="py-2 pl-3 pr-10 text-base border-gray-300 rounded-md focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
         >
           <option value="conversions">Conversions</option>
           <option value="clicks">Clicks</option>
@@ -78,39 +95,41 @@ const ChannelPerformanceChart = ({ campaignsByType }) => {
         </select>
       </div>
 
-      <ResponsiveContainer width="100%" height="80%">
-        <PieChart>
-          <Pie
-            data={chartData}
-            cx="50%"
-            cy="50%"
-            labelLine={false}
-            label={({ name, percent }) =>
-              `${name}: ${(percent * 100).toFixed(0)}%`
-            }
-            outerRadius="80%"
-            fill="#8884d8"
-            dataKey={chartMetric}
-          >
-            {chartData.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
+      <ChartContainer height={280}>
+        {chartData.length > 0 && (
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+              <Pie
+                data={chartData}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                label={false}
+                outerRadius="80%"
+                fill="#8884d8"
+                dataKey={chartMetric}
+              >
+                {chartData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
+              <Tooltip
+                formatter={(value, name, props) => {
+                  const formattedValue =
+                    chartMetric === "spent"
+                      ? `$${value.toLocaleString()}`
+                      : value.toLocaleString();
+                  return [formattedValue, props.payload.name];
+                }}
               />
-            ))}
-          </Pie>
-          <Tooltip
-            formatter={(value, name, props) => {
-              const formattedValue =
-                chartMetric === "spent"
-                  ? `$${value.toLocaleString()}`
-                  : value.toLocaleString();
-              return [formattedValue, props.payload.name];
-            }}
-          />
-          <Legend />
-        </PieChart>
-      </ResponsiveContainer>
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
+        )}
+      </ChartContainer>
     </div>
   );
 };
